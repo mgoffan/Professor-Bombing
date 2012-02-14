@@ -6,8 +6,6 @@
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
 //
 
-#import "cocos2d.h"
-
 #import "AppDelegate.h"
 #import "GameConfig.h"
 #import "HelloWorldLayer.h"
