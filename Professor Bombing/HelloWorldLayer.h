@@ -7,7 +7,7 @@
 //
 
 // HelloWorldLayer
-@interface HelloWorldLayer : CCLayer
+@interface HelloWorldLayer : CCLayer <CCTargetedTouchDelegate>
 {
     NSMutableArray *facesArray;
 }

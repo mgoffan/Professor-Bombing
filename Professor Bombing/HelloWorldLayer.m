@@ -55,12 +55,45 @@
     }
 }
 
+- (void)collisionCheck
+{
+    for (CCSprite *i in facesArray) {
+        if (i.anchorPoint.x == 0) {
+            CCLabelTTF *label = [CCLabelTTF labelWithString:@"Perdiste" fontName:@"Arial" fontSize:48.0f];
+            label.position  = ccp(240, 160);
+            label.color     = ccc3(100, 100, 100); 
+            [self addChild:label];
+            NSLog(@"end");
+        }
+    }
+}
+
+- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[touches allObjects] objectAtIndex:0];
+    CGPoint touchLocation = [touch locationInView:[touch view]];
+    
+    for (CCSprite *i in facesArray) {
+        if (CGRectContainsPoint([i boundingBox], touchLocation)) {
+//            CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hola" fontName:@"Arial" fontSize:48.0f];
+//            label.position  = ccp(240, 160);
+//            label.color     = ccc3(100, 100, 100); 
+//            [self addChild:label];
+            [self removeChild:i cleanup:YES];
+        }
+    }
+    
+    NSLog(@"touch1");
+}
+
 // on "init" you need to initialize your instance
 -(id) init
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super" return value
 	if( (self=[super init])) {
+        
+        self.isTouchEnabled = YES;
         
         CCLayer *layer = [CCLayerColor layerWithColor:ccc4(255, 255, 255, 255) width:480 height:320];
         [self addChild:layer];
@@ -88,6 +121,8 @@
         }
         
         [self animAll];
+        
+        [self performSelectorInBackground:@selector(collisionCheck) withObject:nil];
         
 //        [self schedule:@selector(animAll) interval:2.0];
         
